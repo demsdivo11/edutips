@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase, EdutipsContent } from '../lib/supabase';
-import { Plus, Edit2, Trash2, Eye, EyeOff, LogOut } from 'lucide-react';
+import { Plus, CreditCard as Edit2, Trash2, Eye, EyeOff, LogOut } from 'lucide-react';
 import AddContentForm from './AddContentForm';
 
 interface AdminPageProps {
