@@ -70,43 +70,45 @@ const AddContentForm: React.FC<AddContentFormProps> = ({ adminId, onClose, editC
   };
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-2xl font-bold text-gray-800">
+    <div className="p-6 md:p-8">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
           {editContent ? 'Edit Konten' : 'Tambah Konten Baru'}
         </h2>
         <button
           onClick={onClose}
-          className="p-2 hover:bg-gray-100 rounded-full"
+          className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+          type="button"
         >
-          <X size={24} />
+          <X size={24} className="text-gray-600" />
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-            Judul *
+          <label htmlFor="title" className="block text-sm font-semibold text-gray-700 mb-2">
+            Judul <span className="text-red-500">*</span>
           </label>
           <input
             type="text"
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
+            placeholder="Masukkan judul konten"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-            Kategori *
+          <label htmlFor="category" className="block text-sm font-semibold text-gray-700 mb-2">
+            Kategori <span className="text-red-500">*</span>
           </label>
           <select
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
           >
             <option value="umum">Umum</option>
             <option value="matematika">Matematika</option>
@@ -119,60 +121,73 @@ const AddContentForm: React.FC<AddContentFormProps> = ({ adminId, onClose, editC
         </div>
 
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
-            Konten *
+          <label htmlFor="content" className="block text-sm font-semibold text-gray-700 mb-2">
+            Konten <span className="text-red-500">*</span>
           </label>
           <textarea
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            rows={6}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            rows={8}
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none resize-y"
+            placeholder="Tuliskan konten edukasi Anda di sini..."
             required
           ></textarea>
         </div>
 
         <div>
-          <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700 mb-1">
-            URL Gambar (opsional)
+          <label htmlFor="imageUrl" className="block text-sm font-semibold text-gray-700 mb-2">
+            URL Gambar <span className="text-gray-500 font-normal">(opsional)</span>
           </label>
           <input
             type="url"
             id="imageUrl"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none"
             placeholder="https://example.com/image.jpg"
           />
         </div>
 
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            id="isPublished"
-            checked={isPublished}
-            onChange={(e) => setIsPublished(e.target.checked)}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-          />
-          <label htmlFor="isPublished" className="ml-2 text-sm font-medium text-gray-700">
-            Publish langsung
-          </label>
+        <div className="bg-blue-50 p-4 rounded-lg">
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="isPublished"
+              checked={isPublished}
+              onChange={(e) => setIsPublished(e.target.checked)}
+              className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer"
+            />
+            <label htmlFor="isPublished" className="ml-3 text-sm font-medium text-gray-700 cursor-pointer">
+              Publish konten langsung setelah disimpan
+            </label>
+          </div>
         </div>
 
-        <div className="flex gap-3 pt-4">
+        <div className="flex gap-3 pt-4 border-t">
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 transition-all font-semibold text-gray-700"
           >
             Batal
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-2 px-4 rounded-lg transition-colors"
+            className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 px-4 rounded-lg transition-all shadow-lg"
           >
-            {loading ? 'Menyimpan...' : (editContent ? 'Update' : 'Simpan')}
+            {loading ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Menyimpan...
+              </span>
+            ) : (
+              editContent ? 'Update Konten' : 'Simpan Konten'
+            )}
           </button>
         </div>
       </form>

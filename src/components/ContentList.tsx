@@ -78,33 +78,46 @@ const ContentList: React.FC = () => {
 
       <div className="space-y-4">
         {filteredContent.length === 0 ? (
-          <div className="text-center text-white py-8">
-            Tidak ada konten yang ditemukan
+          <div className="text-center text-white py-12 bg-white bg-opacity-10 rounded-lg">
+            <p className="text-xl font-semibold mb-2">Tidak ada konten yang ditemukan</p>
+            <p className="text-white text-opacity-70">Coba ubah filter pencarian Anda</p>
           </div>
         ) : (
-          filteredContent.map((item) => (
-            <div key={item.id} className="bg-white bg-opacity-10 rounded-lg p-4 hover:bg-opacity-20 transition-all">
-              <div className="flex justify-between items-start mb-2">
-                <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                <span className="bg-cyan-500 text-white px-3 py-1 rounded-full text-sm">
+          filteredContent.map((item, index) => (
+            <div
+              key={item.id}
+              className="bg-white bg-opacity-10 backdrop-blur-sm rounded-xl p-5 hover:bg-opacity-20 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-3 mb-3">
+                <h3 className="text-2xl font-bold text-white leading-tight">{item.title}</h3>
+                <span className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md whitespace-nowrap self-start">
                   {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
                 </span>
               </div>
-              <p className="text-white text-opacity-90 whitespace-pre-wrap">{item.content}</p>
+              <p className="text-white text-opacity-95 whitespace-pre-wrap leading-relaxed mb-3">
+                {item.content}
+              </p>
               {item.image_url && (
                 <img
                   src={item.image_url}
                   alt={item.title}
-                  className="mt-3 rounded-lg max-w-full h-auto"
+                  className="mt-4 rounded-lg max-w-full h-auto shadow-lg"
+                  loading="lazy"
                 />
               )}
-              <p className="text-white text-opacity-60 text-sm mt-2">
-                {new Date(item.created_at).toLocaleDateString('id-ID', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
-              </p>
+              <div className="flex items-center justify-between mt-4 pt-3 border-t border-white border-opacity-20">
+                <p className="text-white text-opacity-70 text-sm flex items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  {new Date(item.created_at).toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}
+                </p>
+              </div>
             </div>
           ))
         )}
